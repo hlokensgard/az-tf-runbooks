@@ -60,8 +60,7 @@ locals {
 }
 
 resource "azurerm_automation_variable_string" "this" {
-  count                   = var.powershell_version == "7.2" ? 1 : 0
-  for_each                = local.automation_account_variables_strings
+  for_each                = var.powershell_version == "7.2" ? local.automation_account_variables_strings : {}
   name                    = each.key
   resource_group_name     = azurerm_automation_account.this.resource_group_name
   automation_account_name = azurerm_automation_account.this.name

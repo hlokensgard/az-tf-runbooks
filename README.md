@@ -1,5 +1,10 @@
 # az-tf-runbooks
-<!-- BEGINNING OF PRE-COMMIT-TERRAFORM DOCS HOOK -->
+This module creates the necessary resources for deploying a runbook into an azure automation account running powershell 7.2. Powershell 7.2 just released in GA and there are therefor a lot of workaround to get this to work.
+See this blog for more information about the different workaround and reasons behind them.
+- SomeBlogPost
+
+
+See the example folder for how to use this module.
 ## Requirements
 
 | Name | Version |
