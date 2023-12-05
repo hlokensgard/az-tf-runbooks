@@ -10,17 +10,17 @@ variable "subscription_id" {
 }
 
 variable "resource_group_name" {
-  description = "The name of the resource group in which all resources in this example should be created."
+  description = "The name of the resource group that will contain the automation account. Will creat a new one."
   type        = string
 }
 
 variable "automation_account_name" {
-  description = "The name of the automation account in which all resources in this example should be created."
+  description = "The name of the automation account."
   type        = string
 }
 
 variable "runbook_name" {
-  description = "The name of the runbook in which all resources in this example should be created."
+  description = "The name of the runbook. This is not the path but the display name in the portal."
   type        = string
 }
 
