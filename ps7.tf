@@ -2,7 +2,7 @@
 resource "azapi_resource" "runbook_ps7_moduels" {
   count                     = var.powershell_version == "7.2" ? 1 : 0
   type                      = "Microsoft.Automation/automationAccounts/runbooks@2023-11-01"
-  name                      = "Install-PowerShell-7.1-Modules"
+  name                      = "Install-PowerShell-7-1-Modules"
   parent_id                 = azurerm_automation_account.this.id
   location                  = azurerm_resource_group.this.location
   schema_validation_enabled = false # Required because this resource won't validate
@@ -25,7 +25,7 @@ resource "azapi_resource" "runbook_ps7_moduels" {
 
 resource "azurerm_storage_blob" "modules" {
   count                  = var.powershell_version == "7.2" ? 1 : 0
-  name                   = "Intall-PowerShell-7.2-Modules"
+  name                   = "Install-PowerShell-7-2-Modules"
   storage_account_name   = azurerm_storage_account.runbooks.name
   storage_container_name = azurerm_storage_container.runbooks.name
   type                   = "Block" # Changing this forces a new resource to be created.
