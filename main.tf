@@ -26,7 +26,7 @@ resource "azapi_resource" "runbook" {
   body = jsonencode({
     properties = {
       runbookType      = local.current_powershell_version
-      logVerbose       = false
+      logVerbose       = true
       logProgress      = false
       logActivityTrace = 0
       publishContentLink = {

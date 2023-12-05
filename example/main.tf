@@ -1,6 +1,6 @@
 module "runbook" {
   source                  = "../"
-  subscription_id         = ""
+  subscription_id         = var.subscription_id
   location                = "westeurope"
   resource_group_name     = "runbook-example"
   automation_account_name = "runbook-example"

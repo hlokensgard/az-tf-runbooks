@@ -25,7 +25,7 @@ resource "azapi_resource" "runbook_ps7_moduels" {
 
 resource "azurerm_storage_blob" "modules" {
   count                  = var.powershell_version == "7.2" ? 1 : 0
-  name                   = "Intall-PowerShell-7.1-Modules"
+  name                   = "Intall-PowerShell-7.2-Modules"
   storage_account_name   = azurerm_storage_account.runbooks.name
   storage_container_name = azurerm_storage_container.runbooks.name
   type                   = "Block" # Changing this forces a new resource to be created.
@@ -60,6 +60,7 @@ locals {
 }
 
 resource "azurerm_automation_variable_string" "this" {
+  count                   = var.powershell_version == "7.2" ? 1 : 0
   for_each                = local.automation_account_variables_strings
   name                    = each.key
   resource_group_name     = azurerm_automation_account.this.resource_group_name
@@ -70,3 +71,20 @@ resource "azurerm_automation_variable_string" "this" {
 }
 
 # Set a one-time schedule to run it at once
+resource "azurerm_automation_schedule" "one_time" {
+  count                   = var.powershell_version == "7.2" ? 1 : 0
+  name                    = "${azapi_resource.runbook_ps7_moduels[0].name}-one-time"
+  resource_group_name     = azurerm_resource_group.this.name
+  automation_account_name = azurerm_automation_account.this.name
+  frequency               = "OneTime"
+
+  // The start_time defaults to now + 7 min
+}
+
+resource "azurerm_automation_job_schedule" "one_time" {
+  count                   = var.powershell_version == "7.2" ? 1 : 0
+  resource_group_name     = azurerm_resource_group.this.name
+  automation_account_name = azurerm_automation_account.this.name
+  runbook_name            = azapi_resource.runbook_ps7_moduels[0].name
+  schedule_name           = azurerm_automation_schedule.one_time[0].name
+}
